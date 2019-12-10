@@ -12,6 +12,16 @@ import * as L from 'leaflet';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+  cinemaIcon = L.icon({
+    iconUrl: '../assets/cinema.png',
+    // shadowUrl: '../assets/cinema.png',
+
+    iconSize: [80, 80], // size of the icon
+    // shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
 
   map: L.Map;
 
@@ -25,13 +35,14 @@ export class MapComponent implements OnInit {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
 
+
   placeInput: String
   latitude: number = 16.047079
   longitude: number = 108.206230
 
   options = {
     layers: [this.streetMaps],
-    zoom: 18,
+    zoom: 15,
     radius: 300,
     center: latLng(this.latitude, this.longitude),
 
@@ -43,7 +54,7 @@ export class MapComponent implements OnInit {
     latitude: 0,
     longitude: 0,
     category: 'cinema',
-    maxLocations: 10,
+    maxLocations: 5,
     outFields: 'Place_addr, PlaceName',
   }
 
@@ -100,7 +111,11 @@ export class MapComponent implements OnInit {
         (doc) => {
           console.log(doc.candidates)
           doc.candidates.forEach(e => {
-            this.placeFound.push(marker([e.location.y, e.location.x]).bindPopup(e.address))
+            this.placeFound.push(marker([e.location.y, e.location.x])
+              .bindPopup("<b>Cinema Name: </b>" + e.address + '.<br><b>Address: </b> ' + e.attributes.Place_addr)
+              .openPopup()
+              //.bindTooltip(e.attributes.Place_addr)
+              .setIcon(this.cinemaIcon))
           });
 
           if (this.placeFound.length > 0) {

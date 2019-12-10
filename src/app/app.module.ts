@@ -7,14 +7,12 @@ import { MapComponent } from './map/map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { GisMapComponent } from './gis-map/gis-map.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent,
-    GisMapComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
