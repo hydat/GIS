@@ -9,6 +9,23 @@ html, body {
   padding: 0;
 }
 
+.fullScreen{
+  height: 800px;
+}
+
+.search {
+  height: 200px;
+  width: 100px;
+  background-color: black;
+  position: absolute;
+  z-index: -1;
+}
+.search1 {
+  height: 20px;
+  width: 100px;
+  background-color: blue;
+
+}
 
 a.navbar-brand {
   font-family: 'Pacifico', cursive;
